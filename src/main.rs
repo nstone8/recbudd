@@ -10,6 +10,8 @@ use std::path::PathBuf;
 #[derive(Parser)]
 struct RecArgs {
     path: PathBuf,
+    #[arg(short, long, default_value_t = 100)]
+    display_buffer: usize,
 }
 ///connect to the DCAM api
 fn get_framesource() -> C11440_22CUSource {
@@ -33,6 +35,7 @@ fn main() {
         source_fn: get_framesource,
         exposure: 0.001,
         resolution: [1024, 1024],
+        display_buffer: args.display_buffer,
     };
     AnalysisInterface::<C11440_22CUSource, RecBudd>::run(Settings::with_flags(settings)).unwrap();
 }
