@@ -23,13 +23,15 @@ fn main() {
     let b = DirBuilder::new();
     b.create(&dir).expect("couldn't create image directory");
     //pull off frames until there are none left, save them in a new folder next to the data file
+    let mut framenum = 1;
     loop {
         match ciborium::from_reader::<recbudd::RecFrame, &mut BufReader<File>>(&mut reader) {
             Ok(rec_frame) => {
                 let ts = rec_frame.get_timestamp();
                 let im = rec_frame.to_image();
                 let mut im_path = dir.clone();
-                im_path.push(format!("{}.png", ts));
+                im_path.push(format!("{}_{}.png", framenum, ts));
+                framenum += 1;
                 im.save(im_path).expect("couldn't save image");
             }
             Err(_) => {
