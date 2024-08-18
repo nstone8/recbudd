@@ -1,12 +1,19 @@
 [package]
 name = "recbudd"
-version = "0.1.4"
+version = "0.2.0"
 edition = "2021"
 
 [dependencies]
 chrono = "0.4.38"
 ciborium = "0.2.2"
 clap = { version = "4.5.11", features = ["derive"] }
-free_willy = { git = "https://github.com/nstone8/free_willy", version = "0.2.3" }
+free_willy = { git = "https://github.com/nstone8/free_willy", version = "0.2.3", optional = true}
 papillae = { git = "https://github.com/nstone8/papillae", version = "0.1.9" }
 serde = { version = "1.0.204", features = ["derive"] }
+
+[features]
+app = ["dep:free_willy"]
+
+[[bin]]
+name = "recbudd"
+required-features = ["app"]
