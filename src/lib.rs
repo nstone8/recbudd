@@ -93,7 +93,7 @@ impl Analysis for RecBudd {
     fn display_results(
         d: &Self::DisplayData,
     ) -> Container<'_, UiMessage<Self::DisplayData>, Theme, iced::Renderer> {
-        let disp_text = text(d.as_secs_f32());
+        let disp_text = text(format!("time elapsed: {}", d.as_secs_f32()));
         Container::new(disp_text)
     }
 }
